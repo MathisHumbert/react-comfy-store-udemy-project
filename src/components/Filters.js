@@ -77,7 +77,71 @@ const Filters = () => {
               })}
             </select>
           </div>
+          {/* colors */}
+          <div className="form-control">
+            <h5>colors</h5>
+            <div className="colors">
+              {colors.map((c, index) => {
+                if (c === 'all') {
+                  return (
+                    <button
+                      key={index}
+                      name="color"
+                      data-color={c}
+                      onClick={updateFilters}
+                      className={`${
+                        color === 'all' ? 'all-btn active' : 'all-btn'
+                      }`}
+                    >
+                      all
+                    </button>
+                  );
+                }
+                return (
+                  <button
+                    key={index}
+                    name="color"
+                    data-color={c}
+                    style={{ background: c }}
+                    className={`${
+                      c === color ? 'color-btn active' : 'color-btn'
+                    }`}
+                    onClick={updateFilters}
+                  >
+                    {c === color && <FaCheck />}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+          {/* price */}
+          <div className="form-control">
+            <h5>price</h5>
+            <p className="price">{formatPrice(price)}</p>
+            <input
+              type="range"
+              name="price"
+              min={min_price}
+              max={max_price}
+              value={price}
+              onChange={updateFilters}
+            />
+          </div>
+          {/* shipping */}
+          <div className="form-contraol shipping">
+            <label htmlFor="shipping">free shipping</label>
+            <input
+              type="checkbox"
+              name="shipping"
+              id="shipping"
+              onChange={updateFilters}
+              checked={shipping}
+            />
+          </div>
         </form>
+        <button type="button" className="clear-btn" onClick={clearFilters}>
+          clear filters
+        </button>
       </div>
     </Wrapper>
   );

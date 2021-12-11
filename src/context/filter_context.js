@@ -63,12 +63,27 @@ export const FilterProvider = ({ children }) => {
 
   const updateFilters = (e) => {
     const name = e.target.name;
-    const value = e.target.value || e.target.textContent;
-    console.log(value);
+    let value = e.target.value;
+
+    if (name === 'category') {
+      value = e.target.textContent;
+    }
+    if (name === 'color') {
+      value = e.target.dataset.color;
+    }
+    if (name === 'price') {
+      value = Number(value);
+    }
+    if (name === 'shipping') {
+      value = e.target.checked;
+    }
+
     dispatch({ type: UPDATE_FILTERS, payload: { value, name } });
   };
 
-  const clearFilters = () => {};
+  const clearFilters = () => {
+    dispatch({ type: CLEAR_FILTERS });
+  };
 
   return (
     <FilterContext.Provider
